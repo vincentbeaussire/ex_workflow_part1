@@ -1,0 +1,48 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    volumes:
+      - db_student:/var/lib/mysql
+    networks:
+      - net_student
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - PMA_HOST=db
+    networks:
+      - net_student
+    ports:
+      - "80:80"
+
+  app:
+    build:
+      context: .
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8090:8080"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - net_student
+
+volumes:
+  db_student:
+
+networks:
+  net_student:

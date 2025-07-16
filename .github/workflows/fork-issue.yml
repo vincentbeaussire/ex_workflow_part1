@@ -7,5 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Message pour le fork
-        run: echo "Le projet a été forké !!!"
+        run: echo "Le projet a été forké."
 
