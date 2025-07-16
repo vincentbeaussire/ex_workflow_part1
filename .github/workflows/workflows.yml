@@ -1,7 +1,5 @@
 name: Build Spring App
 
-
-# Déclencher le workflow lors du push de l'application
 on:
   push:
     branches:
@@ -12,21 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # étape 1: cherchez dans le marketplace l'action pour configurer le jdk
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # étape 2: récupération du projet
       - name: Checkout project
         uses: actions/checkout@v4
 
-      # étape 3: installation des dépendances
       - name: Install dependencies
         run: mvn dependency:resolve
 
-      # étape 4: build de l'application
       - name: Build de l'application
         run: mvn clean package
