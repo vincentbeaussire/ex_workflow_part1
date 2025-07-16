@@ -1,0 +1,11 @@
+name: Fork Workflow
+
+on: fork
+
+jobs:
+  fork:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Message pour le fork
+        run: echo "Le projet a été forké !!!"
+
