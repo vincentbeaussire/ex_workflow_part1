@@ -1,0 +1,17 @@
+name: workflow-issue.yml
+
+on:
+  issues:
+    types: opened
+
+jobs:
+  commentaire:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Reply to an issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url}}
+        run: gh issue comment $ISSUE_URL --body "Bonjour $MY_NAME, nous avons bien pris en compte votre problème du nom de $MY_ISSUE."
